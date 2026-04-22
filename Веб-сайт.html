@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ҚР Мемлекеттік Рәміздері — Жарқын Портал</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #C19A6B; /* Көне алтын - ашық фонға ыңғайлы */
+            --blue: #00AFCA; /* ҚР Туының түсі */
+            --light-bg: #F0F8FF; /* Өте ашық көгілдір фон */
+            --white: #FFFFFF;
+            --text-main: #333333;
+            --text-second: #555555;
+            --glass: rgba(255, 255, 255, 0.5);
+            --shadow: 0 15px 35px rgba(0,0,0,0.05);
+            --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--light-bg);
+            /* Артқы фондағы нәзік градиент */
+            background-image: radial-gradient(at 10% 10%, rgba(0, 175, 202, 0.08) 0px, transparent 50%),
+                              radial-gradient(at 90% 90%, rgba(193, 154, 107, 0.08) 0px, transparent 50%);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 { font-family: 'Orbitron', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Тақырыптарға арналған градиент */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--blue), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* NAVIGATION (Sticky & Glass) */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 25px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        nav.sticky {
+            padding: 15px 8%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+        }
+
+        .nav-logo { font-size: 1.2rem; }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 0; background-color: var(--blue);
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--blue); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            background: radial-gradient(circle at center, var(--white) 0%, var(--light-bg) 100%);
+        }
+
+        .hero h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 20px; }
+        .hero p { max-width: 700px; color: var(--text-second); font-size: 1.1rem; margin-bottom: 40px; }
+
+        /* Scroll Down Mouse Animation */
+        .scroll-down {
+            position: absolute; bottom: 30px;
+            width: 25px; height: 40px;
+            border: 2px solid var(--text-main);
+            border-radius: 20px;
+        }
+        .scroll-down::before {
+            content: ''; position: absolute; top: 8px; left: 50%;
+            width: 6px; height: 6px; background: var(--text-main);
+            margin-left: -3px; border-radius: 50%;
+            animation: scroll-mouse 2s infinite;
+        }
+        @keyframes scroll-mouse { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(15px); } }
+
+        /* SYMBOLS SECTIONS */
+        section { padding: 120px 8% 80px; min-height: 90vh; }
+
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .symbol-img-container {
+            position: relative;
+            display: flex; justify-content: center; align-items: center;
+        }
+        /* Сурет астындағы нәзік көлеңке */
+        .symbol-img-container::before {
+            content: ''; position: absolute; width: 80%; height: 80%;
+            background: radial-gradient(circle, rgba(0, 175, 202, 0.15) 0%, transparent 70%);
+            z-index: -1; filter: blur(20px);
+        }
+
+        .symbol-img {
+            width: 100%; max-width: 450px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+            transition: var(--transition);
+        }
+        .symbol-img:hover { transform: translateY(-10px) scale(1.02); }
+
+        .info-card {
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Карточка бұрышындағы нәзік сызық */
+        .info-card::after {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(to right, var(--blue), var(--gold));
+        }
+
+        .info-card h3 { color: var(--blue); margin-bottom: 20px; font-size: 1.3rem; }
+        .info-card p { color: var(--text-second); margin-bottom: 15px; text-align: justify; }
+        .info-card b { color: var(--text-main); }
+
+        /* ANTHEM SECTION */
+        #anthem {
+            background: var(--white);
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            margin: 0 5%;
+        }
+
+        .anthem-wrapper {
+            text-align: center; max-width: 700px; margin: 0 auto;
+        }
+
+        audio {
+            width: 100%; margin: 30px 0;
+            outline: none;
+        }
+        audio::-webkit-media-controls-panel { background-color: #f1f3f4; }
+
+        .lyrics {
+            font-style: italic; color: var(--text-second);
+            white-space: pre-line;
+            background: rgba(0, 175, 202, 0.03);
+            padding: 30px; border-radius: 20px;
+            border: 1px dashed rgba(0, 175, 202, 0.2);
+        }
+
+        /* AUTHORS SECTION */
+        .authors-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .author-card {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.01);
+            transition: var(--transition);
+            display: flex; flex-direction: column;
+        }
+        .author-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+            border-color: rgba(193, 154, 107, 0.2);
+        }
+
+        .author-img-wrapper {
+            width: 100%; height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+        .author-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: var(--transition);
+        }
+        .author-card:hover img { transform: scale(1.1); }
+
+        .author-info {
+            padding: 25px; text-align: center; flex-grow: 1;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .author-info h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 8px; font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: none; letter-spacing: 0; }
+        .author-info span { font-size: 0.85rem; color: var(--blue); font-weight: 600; opacity: 0.8; }
+
+        /* Reveal Animation on Scroll */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s all ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Delay for grid elements */
+        .reveal-delay-1 { transition-delay: 0.2s; }
+        .reveal-delay-2 { transition-delay: 0.4s; }
+        .reveal-delay-3 { transition-delay: 0.6s; }
+
+        footer {
+            text-align: center; padding: 60px 8%;
+            background: var(--white);
+            margin-top: 80px;
+            border-top: 1px solid rgba(0,0,0,0.03);
+        }
+        footer p { color: var(--text-second); font-size: 0.9rem; }
+
+        /* RESPONSIVE */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 2.5rem; }
+            .content-grid { grid-template-columns: 1fr; gap: 40px; }
+            .symbol-img-container { order: -1; } /* Сурет бірінші тұрады */
+            .symbol-img { max-width: 300px; }
+            .info-card { padding: 30px; }
+            .nav-links { display: none; } /* Мобильдік меню бұл мысалда қарастырылмаған */
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-logo">
+            <h2 class="gradient-text">QAZAQSTAN</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Басты</a></li>
+            <li><a href="#flag">Ту</a></li>
+            <li><a href="#emblem">Елтаңба</a></li>
+            <li><a href="#anthem">Әнұран</a></li>
+            <li><a href="#authors">Авторлар</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1 class="reveal"><span class="gradient-text">Қазақстан Республикасының</span><br>Мемлекеттік Рәміздері</h1>
+        <p class="reveal">Тәуелсіздік нышандары - елдігіміздің негізі, бірлігіміздің берекесі және болашаққа деген сеніміміздің символы.</p>
+        <div class="scroll-down reveal"></div>
+    </section>
+
+    <section id="flag">
+        <h2 class="section-title reveal"><span class="gradient-text">Мемлекеттік Ту</span></h2>
+        <div class="content-grid">
+            <div class="symbol-img-container reveal">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg" alt="ҚР Туы" class="symbol-img">
+            </div>
+            <div class="info-card reveal">
+                <h3>Аспан түстес байрағым</h3>
+                <p>Қазақстан Туы – халқымыздың үміті мен арманын көкке көтерген қасиетті рәміз. Көгілдір түсі бейбітшілік пен бірлікті білдірсе, алтын күн – нұрлы болашақ пен берекенің белгісі. Күн астындағы қыран бүркіт еркіндік пен тәуелсіз ел рухының биіктігін көрсетеді. Ал ұлттық өрнек ата-баба мұрасы мен мәдениетіміздің жалғасын айқындайды. Бұл Ту – ұлттың мақтанышы, рухы және Отанға деген сүйіспеншіліктің символы.</p>
+                <p><b>Көгілдір түс:</b> Бұл түс бұлтсыз аспанды білдіреді және әлем халықтарында бейбітшілік пен игіліктің белгісі саналады. Түркі халықтары үшін бұл түс қасиетті, ол мәңгілік аспан мен бірліктің символы.</p>
+                <p><b>Алтын Күн мен Қыран:</b> Күн — өмір мен қуаттың көзі, ал қыран — мемлекеттің еркіндігі мен болашаққа деген ұмтылысының айғағы.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="emblem">
+        <h2 class="section-title reveal"><span class="gradient-text">Мемлекеттік Елтаңба</span></h2>
+        <div class="content-grid">
+            <div class="info-card reveal">
+                <h3>Шаңырақ — ортақ үйіміз</h3>
+                <p>Елтаңбаның негізгі идеясы — <b>Шаңырақ</b>. Ол мемлекеттің түпкі негізі — отбасының берекесін, бейбітшілікті және барлық халықтардың ортақ үйін бейнелейді.</p>
+                <p><b>Тұлпарлар:</b> Елтаңбадағы екі жақта орналасқан пырақтар (қанатты тұлпарлар) ерліктің, күш-жігердің және жеңіске деген сенімнің символы. Олардың қанаттары бидай масақтарымен бейнеленген, бұл молшылық пен еңбекті білдіреді.</p>
+                <p><b>Бес бұрышты жұлдыз:</b> Бұл — біздің жолымызды жарықтандыратын бағыт, "бағымыз ашық, жұлдызымыз биік болсын" деген асыл арманның көрінісі.</p>
+            </div>
+            <div class="symbol-img-container reveal">
+                <img src="https://www.akorda.kz/assets/media/gerb_mediumThumb.jpg" alt="ҚР Елтаңбасы" class="symbol-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="anthem">
+        <div class="anthem-wrapper reveal">
+            <h2 class="section-title"><span class="gradient-text">Мемлекеттік Әнұран</span></h2>
+            <p>Елдің рухын асқақтататын басты ән</p>
+            
+            <div style="margin: 30px 0; text-align:center;">
+    <h3 style="font-size: 1.1rem; color: #333; margin-bottom: 15px;">
+        🎵 Мемлекеттік Әнұранды тыңдау
+    </h3>
+
+    <a href="https://youtu.be/-eh5T2Uqfjw?si=8YvS6GZTLrUG3qmb" target="_blank"
+       style="
+        display: block;
+        position: relative;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        border: 1px solid rgba(0,0,0,0.05);
+        text-decoration: none;
+       ">
+
+        <!-- Қазақстан Туы (фон ретінде) -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Flag_of_Kazakhstan.svg"
+             alt="Қазақстан Туы"
+             style="width:100%; height:350px; object-fit:cover; display:block;">
+
+        <!-- Қараңғы overlay -->
+        <div style="
+            position:absolute;
+            inset:0;
+            background: rgba(0,0,0,0.35);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            transition: 0.4s;
+        "></div>
+
+        <!-- Play белгі -->
+        <div style="
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:90px;
+            height:90px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size: 2.3rem;
+            color: #00AFCA;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        ">
+            ▶
+        </div>
+
+        <!-- Төменгі жазу -->
+        <div style="
+            position:absolute;
+            bottom:0;
+            left:0;
+            width:100%;
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.55);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        ">
+            Әнұранды тыңдау үшін суретті басыңыз - Youtube желісі арқылы
+        </div>
+    </a>
+</div>
+
+            <div class="lyrics">
+                Қазақстанның Мемлекеттік Әнұраны – бұл халықтың рухын көтеретін, елге деген махаббат пен мақтаныш сезімін оятатын қасиетті рәміз. Әнұран орындалған сәтте әр қазақтың жүрегінде Отанға деген адалдық, еркіндікке деген құрмет және бірлікке деген сенім күшейеді. Бұл ән халықтың болмысын, кең даланың еркіндігін, батыр бабалардың ерлігін және болашаққа деген үмітін бейнелейді. Әнұран – еліміздің тәуелсіздігі мен тұтастығын паш ететін қасиетті үн.
+
+Қазақстан Республикасының қазіргі Мемлекеттік Әнұраны 2006 жылы қабылданды. Оның негізі ретінде халық арасында кең танымал болған «Менің Қазақстаным» әні алынған. Әнұранның әуенін қазақтың ұлы композиторы Шәмші Қалдаяқов жазса, сөзін көрнекті ақын Жұмекен Нәжімеденов жазған. Ал тәуелсіз Қазақстанның рухына сай мәтінге өзгерістер енгізуге Нұрсұлтан Назарбаев қатысқан.
+
+Бұл әннің әрбір әуені мен әр жолы қазақ елінің кеңдігін, халқымыздың еркін рухын және туған жерге деген шексіз сүйіспеншілікті жеткізеді. Сондықтан Мемлекеттік Әнұран – бұл жай ғана музыка емес, бұл – жүрекке жазылған елдік сезім, ұлттың намысы мен мақтанышы.
+            </div>
+        </div>
+    </section>
+
+    <section id="authors">
+    <h2 class="section-title reveal"><span class="gradient-text">Рәміздер Авторлары</span></h2>
+    <div class="authors-container">
+
+        <!-- Ту авторы -->
+        <div class="author-card reveal">
+            <div class="author-img-wrapper">
+                <img src="https://th.bing.com/th/id/R.048b809e03f3e16271eb53dde08bf258?rik=xywMfzfFSvUCJA&riu=http%3a%2f%2fanatili.kazgazeta.kz%2fwp-content%2fuploads%2f%d0%a8%d0%b0%d0%ba%d0%b5%d0%bd-%d0%ba%d0%be%d0%bf%d0%b8%d1%8f.png&ehk=YpbgEKnzr3QNnT%2f9kGWBTzhT2oIoHg2gzYUAo3ubXF0%3d&risl=&pid=ImgRaw&r=0" alt="Шәкен Ниязбеков">
+            </div>
+            <div class="author-info">
+                <h4>Шәкен Ниязбеков</h4>
+                <span>Мемлекеттік Тудың авторы</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Қазақстан Республикасының көк байрағын жасаған суретші-дизайнер. 
+                    Оның туындысы 1992 жылы ресми түрде қабылданды.
+                </p>
+            </div>
+        </div>
+
+        <!-- Елтаңба авторы -->
+        <div class="author-card reveal reveal-delay-1">
+            <div class="author-img-wrapper">
+                <img src="https://e-history.kz/storage/images/news/oe/WH/lZ/oeWHlZxIsYiNwu5ltL85vmRC0XhO0Jfkv6rpjpL7.jpg" alt="Жандарбек Мәлібеков">
+            </div>
+            <div class="author-info">
+                <h4>Жандарбек Мәлібеков</h4>
+                <span>Елтаңба авторы</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Қазақстанның Мемлекеттік Елтаңбасын жасаған белгілі сәулетші. 
+                    Елтаңбадағы шаңырақ пен тұлпар бейнесі ұлттық рухты айқындайды.
+                </p>
+            </div>
+        </div>
+
+        <!-- Елтаңба авторы -->
+        <div class="author-card reveal reveal-delay-2">
+            <div class="author-img-wrapper">
+                <img src="https://cdn.nur.kz/images/1120x630/a131193d48274ef7.jpeg" alt="Шот-Аман Уәлиханов">
+            </div>
+            <div class="author-info">
+                <h4>Шот-Аман Уәлиханов</h4>
+                <span>Елтаңба авторы</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Көрнекті сәулетші, қоғам қайраткері. 
+                    Қазақстан Елтаңбасының идеялық және көркемдік құрылымын қалыптастыруға үлес қосты.
+                </p>
+            </div>
+        </div>
+
+        <!-- Әнұран композиторы -->
+        <div class="author-card reveal reveal-delay-3">
+            <div class="author-img-wrapper">
+                <img src="https://adebiportal.kz/storage/tmp/resize/authors/1200_0_44dc63f7a46579a0dd1ffbd37b3fabc9.jpg" alt="Шәмші Қалдаяқов">
+            </div>
+            <div class="author-info">
+                <h4>Шәмші Қалдаяқов</h4>
+                <span>Әнұран композиторы</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Қазақ музыка өнерінің ұлы композиторы. 
+                    «Менің Қазақстаным» әнінің әуені халық рухын көтеретін мәңгілік мұраға айналды.
+                </p>
+            </div>
+        </div>
+
+        <!-- Әнұран мәтін авторы -->
+        <div class="author-card reveal">
+            <div class="author-img-wrapper">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.KyOfc1XZbcDAXAM_3spKQgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Жұмекен Нәжімеденов">
+            </div>
+            <div class="author-info">
+                <h4>Жұмекен Нәжімеденов</h4>
+                <span>Әнұран мәтінінің авторы</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Ақын, жазушы. 
+                    Қазақстанның қазіргі Әнұранына негіз болған «Менің Қазақстаным» әнінің мәтінін жазған тұлға.
+                </p>
+            </div>
+        </div>
+
+        <!-- Әнұран мәтін авторы (редакция) -->
+        <div class="author-card reveal reveal-delay-1">
+            <div class="author-img-wrapper">
+                <img src="https://tse2.mm.bing.net/th/id/OIP.4DIPrlFQnlNOW3Cx9A2kFAHaKQ?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Нұрсұлтан Назарбаев">
+            </div>
+            <div class="author-info">
+                <h4>Нұрсұлтан Назарбаев</h4>
+                <span>Әнұран мәтініне авторлық үлес қосқан</span>
+                <p style="margin-top: 12px; font-size: 0.9rem; color: #555;">
+                    Қазақстан Республикасының тұңғыш Президенті. 
+                    2006 жылы қабылданған Әнұран мәтінінің редакциясына қатысып, ұлттық идеяны күшейтті.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <footer>
+        <p>“Елтаңбасы – елдігім, Туы – теңдігім, Әнұраны – айбыным”</p>
+        <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">© 2026 Рәміздер Порталы</p>
+    </footer>
+
+    <script>
+        // Reveal on Scroll Logic with Intersection Observer
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Анимация бір рет қана істеуі үшін observer-ді тоқтатамыз (міндетті емес)
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        };
+
+        const revealObserver = new IntersectionObserver(revealCallback, {
+            threshold: 0.15 // Элементтің 15%-ы көрінгенде анимация қосылады
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Navigation bar color change on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('sticky');
+            } else {
+                nav.classList.remove('sticky');
+            }
+        });
+    </script>
+</body>
+</html>
